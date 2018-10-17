@@ -41,3 +41,30 @@ MDISforLinux/BIN/mdiswiz
 
 DRIVERS/BBIS/SMBPCI : ### submodule removed ###
 ```
+
+## scripts
+
+This subdirectory contains shell scripts.
+Copy the *.sh files to a location that is specified in yout PATH variable (e.g. /usr/local/bin).
+
+### check_readme.sh
+
+This shell script verifies that in the current repo and all included submodules a readme file
+exists in the top dir of each repo. The scripts lists all submodules with missing readme files
+and prints an pass/fail result.
+
+Example usage:
+`dpfeuffer@vm-suse:~/work/repos/13MD05-90> check_readme.sh`
+
+Fictitious example output:
+```
+readme found in current repo
+5/70 submodules without readme file in top level dir
+list of affected submodules:
+13AD78-06
+13Z025-90
+13Z044-90
+DRIVERS/BBIS/A12
+TOOLS/WDOG
+*** FAIL (some readme files missing)
+```

@@ -1,5 +1,5 @@
 # mdis_tools_dev
-MDIS tool collection for development (shell scripts)
+MDIS tool collection for development and testing.
 
 This repo is intended for MDIS developmen tools.
 The tools are grouped in subdirectories.

@@ -1,0 +1,66 @@
+#!/bin/sh
+
+if [ "$#" -lt 1 ]; then
+    echo "usage: git log-sub <old-rev>"
+    echo "Shows all commits and touched files of current git repo and submodules"
+    echo "between <old-rev> and current HEAD."
+    exit 1
+fi
+
+OLD=$1
+NEW=HEAD
+
+
+function compare {
+    old=$1
+    new=$2
+    sub=$3
+
+    # base repo?
+    if [[ $sub == "_base_"  ]]; then
+        if [[ $old == $new ]]; then
+            echo "*** <old-rev> must be different from  <new-rev>/HEAD"
+            exit 1
+        fi
+        git --no-pager log --name-only --ignore-submodules=all $old..$new
+    # submodule
+    else
+        # submodule modified?
+        if [[ $old != $new ]]; then
+            echo
+            git --no-pager log --name-only --ignore-submodules=all $old..$new | awk -v r=$3 '{ print "" r ": " $0}'
+        fi
+    fi
+
+
+    for submodule in `git submodule | awk '{print $2}'`
+    do
+        subold=$(git ls-tree $old $submodule | awk '{print $3}')
+
+        # submodule added?
+        if [[ -z $subold ]]; then
+            echo
+            echo "$submodule : ### submodule added  ###"
+            continue
+        fi
+ 
+        subnew=$(git ls-tree $new $submodule | awk '{print $3}')
+        if [[ -z $subnew ]]; then
+            echo "*** script internal error this shouldn't happen, fix me!!!" 
+            exit -1
+        fi
+
+        (cd $submodule; compare $subold $subnew $submodule)
+    done
+
+    # detect removed submodules
+    for submodule in `git --no-pager diff --submodule $old..$new | grep "(submodule deleted)" | awk '{print $2}'`
+    do
+        echo
+        echo "$submodule : ### submodule removed ###"
+    done
+}
+
+
+compare "$OLD" "$NEW" "_base_"
+

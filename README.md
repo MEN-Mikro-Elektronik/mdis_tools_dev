@@ -69,3 +69,21 @@ DRIVERS/BBIS/A12
 TOOLS/WDOG
 *** FAIL (some readme files missing)
 ```
+
+### check_license.sh
+
+This shell script verifies that all .c/.h source files contain a GNU license note.
+
+Example usage:
+`dpfeuffer@vm-suse:~/work/repos/13MD05-90> check_license.sh`
+
+Fictitious example output:
+```
+4/718 .c/.h files without GNU license note
+list of affected files
+./13M058-06/DRIVERS/MDIS_LL/M058/TOOLS/M58_READ/COM/m58_read.c
+./13Z044-90/INCLUDE/NATIVE/MEN/fb_men_16z044.h
+./13Z044-90/TOOLS/FB_TEST/fb16z044_test.c
+./13Z135-90/DRIVERS/13Z135/men_mdis_z135.c
+*** FAIL (some .c/.h files without GNU license note)
+```

@@ -42,10 +42,11 @@ MDISforLinux/BIN/mdiswiz
 DRIVERS/BBIS/SMBPCI : ### submodule removed ###
 ```
 
-## scripts
+## inspection
 
-This subdirectory contains shell scripts.
-Copy the *.sh files to a location that is specified in yout PATH variable (e.g. /usr/local/bin).
+This subdirectory contains tools for the inspection of the MDIS repositories
+and MDIS sources.
+Copy the tools to a location that is specified in yout PATH variable (e.g. /usr/local/bin).
 
 ### check_readme.sh
 

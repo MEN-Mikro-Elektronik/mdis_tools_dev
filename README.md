@@ -50,9 +50,9 @@ Copy the tools to a location that is specified in yout PATH variable (e.g. /usr/
 
 ### check_readme.sh
 
-This shell script verifies that in the current repo and all included submodules a readme file
-exists in the top dir of each repo. The scripts lists all submodules with missing readme files
-and prints an pass/fail result.
+This shell script verifies for the current repo and all included submodules that a readme file
+exists in the top dir of each repo. The script lists all submodules with missing readme files
+and prints a success/fail result.
 
 Example usage:
 `dpfeuffer@vm-suse:~/work/repos/13MD05-90> check_readme.sh`
@@ -73,6 +73,7 @@ TOOLS/WDOG
 ### check_license.sh
 
 This shell script verifies that all .c/.h source files contain a GNU license note.
+The script lists all erroneous files and prints a success/fail result.
 
 Example usage:
 `dpfeuffer@vm-suse:~/work/repos/13MD05-90> check_license.sh`
@@ -86,4 +87,24 @@ list of affected files
 ./13Z044-90/TOOLS/FB_TEST/fb16z044_test.c
 ./13Z135-90/DRIVERS/13Z135/men_mdis_z135.c
 *** FAIL (some .c/.h files without GNU license note)
+```
+
+### check_headtag.sh
+
+This shell script verifies for the current repo and all included submodules that
+the head is at a commit with 'master' and 'origin/master' and that the tag
+complies to the format \<modulename\>_xx_xx.
+The script lists all errors and prints a success/fail result.
+
+Example usage:
+`dpfeuffer@vm-suse:~/work/repos/13MD05-90> check_headtag.sh`
+
+Fictitious example output:
+```
+13MD05-90 : ca60053 (HEAD, tag: 05_01_21, origin/master, origin/HEAD, master) : illegal tag : 05_01_21 
+13AD78-06 : e6b1c33 (HEAD, origin/master, origin/HEAD, master) : missing tag
+13SC24-91 : 49d7a44 (HEAD, tag: 14SC24-91_01_01, origin/master, origin/HEAD, master) : illegal tag : 14SC24-91_01_01 
+13Y007-06 : ec3f6a2 (HEAD) : missing origin/master master tag
+LIBSRC/PLD/COM : 01256c8 (HEAD, origin/master, origin/HEAD, master) : missing tag
+*** FAIL
 ```

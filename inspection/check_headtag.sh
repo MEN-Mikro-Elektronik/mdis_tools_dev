@@ -5,7 +5,7 @@ fail=0
 # return head logs of all repos
 function headlog {
     printf "%s : " ${PWD##*/}; git --no-pager show --summary --oneline --pretty=format:"%h %d" | head -1
-    git submodule foreach --quiet 'printf "%s : " $name; git --no-pager show --summary --oneline --pretty=format:"%h %d" | head -1'
+    git submodule foreach --quiet 'printf "%s : " $(basename $(git remote get-url origin) .git); git --no-pager show --summary --oneline --pretty=format:"%h %d" | head -1'
 }
 
 # check tag, must be <modulename>_xx_xx
@@ -16,7 +16,6 @@ function checktag {
     tag=$( echo $line | sed -e 's/.*tag: \([^,]*\),.*/\1/' )
 
     name=$( echo $line | sed -e 's/\(.*\) :.*/\1/' )
-    name=${name##*/}
 
     if [[ $tag == $name* ]]; then
         ver=$(echo $tag | sed -e "s/$name\_\(.*\).*/\1/")

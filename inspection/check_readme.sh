@@ -14,11 +14,11 @@ fi
 
 # check for readme files in submodules
 subs=$(git submodule | wc -l)
-subswo=$(git submodule foreach --quiet  '[[ $(find . -maxdepth 1 -type f -iname *readme*) ]] || echo  $name' | wc -l)
+subswo=$(git submodule foreach --quiet  '[ "$(find . -maxdepth 1 -type f -iname *readme*)" ] || echo  $name' | wc -l)
 
 echo "$subswo/$subs submodules without readme file in top level dir"
 echo "list of affected submodules:"
-git submodule foreach --quiet  '[[ $(find . -maxdepth 1 -type f -iname *readme*) ]] || echo  $name'
+git submodule foreach --quiet  '[ "$(find . -maxdepth 1 -type f -iname *readme*)" ] || echo  $name'
 
 
 # show result

@@ -92,8 +92,8 @@ list of affected files
 
 ### check_headtag.sh
 
-This shell script verifies for the current repo and all included submodules that
-the head is at a commit with 'master' and 'origin/master' and that the tag
+This shell script verifies for all included submodules of the current repo,
+that the head is at a commit with 'master' and 'origin/master' and that the tag
 complies to the format \<modulename\>_xx_xx.
 The script lists all errors and prints a success/fail result.
 
@@ -102,10 +102,10 @@ Example usage:
 
 Fictitious example output:
 ```
-13MD05-90 : ca60053 (HEAD, tag: 05_01_21, origin/master, origin/HEAD, master) : illegal tag : 05_01_21 
 13AD78-06 : e6b1c33 (HEAD, origin/master, origin/HEAD, master) : missing tag
 13SC24-91 : 49d7a44 (HEAD, tag: 14SC24-91_01_01, origin/master, origin/HEAD, master) : illegal tag : 14SC24-91_01_01 
 13Y007-06 : ec3f6a2 (HEAD) : missing origin/master master tag
 LIBSRC/PLD/COM : 01256c8 (HEAD, origin/master, origin/HEAD, master) : missing tag
+Result: 70 submodules, 1 HEAD errors, 3 tag errors
 *** FAIL
 ```

@@ -1,10 +1,11 @@
 #! /bin/bash
 
-fail=0
+sum=0
+errhead=0
+errtag=0
 
-# return head logs of all repos
+# return head logs of all submodule repos
 function headlog {
-    printf "%s : " ${PWD##*/}; git --no-pager show --summary --oneline --pretty=format:"%h %d" | head -1
     git submodule foreach --quiet 'printf "%s : " $(basename $(git remote get-url origin) .git); git --no-pager show --summary --oneline --pretty=format:"%h %d" | head -1'
 }
 
@@ -24,13 +25,17 @@ function checktag {
         illtag=1
     fi
 
-    [[ $illtag = 1 ]] && fail=1 && echo "$line : illegal tag : $tag "
+    if [[ $illtag = 1 ]]; then
+        echo "$line : illegal tag : $tag "
+        ((errtag++))
+    fi
 }
 
 # check head, must be commit with master and tag
 function checkhead {
     line=$*
     om=0; m=0; t=0
+    ((sum++))
 
     [[ $line = *" origin/master"* ]] && om=1
     [[ $line = *" master"* ]] && m=1
@@ -42,7 +47,7 @@ function checkhead {
         [[ $m == 0 ]] && echo -n "master " 
         [[ $t == 0 ]] && echo -n "tag" 
         echo
-        fail=1
+        ((errhead++))
     fi
 
     [[ $t == 1 ]] && checktag $line
@@ -53,7 +58,8 @@ while read -r line; do
 done <<< $(headlog)
 
 # show result
-if [[ $fail -gt 0 ]]; then
+echo "Result: $sum submodules, $errhead HEAD errors, $errtag tag errors"
+if [[ $((errhead + errtag)) -gt 0 ]]; then
     echo "*** FAIL"
 else
     echo "--- SUCCESS ---"

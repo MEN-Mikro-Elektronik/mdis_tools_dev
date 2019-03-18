@@ -1,8 +1,9 @@
 # mdis_tools_dev
 MDIS tool collection for development and testing.
 
-This repo is intended for MDIS developmen tools.
+This repo is intended for MDIS development tools.
 The tools are grouped in subdirectories.
+The install.sh script performs the default installation. It copies all tools into /usr/local/bin.
 
 ## git-extensions
 This subdirectory contains git extensions.

@@ -51,9 +51,7 @@ Copy the tools to a location that is specified in yout PATH variable (e.g. /usr/
 
 ### check_readme.sh
 
-This shell script verifies for the current repo and all included submodules that a readme file
-exists in the top dir of each repo. The script lists all submodules with missing readme files
-and prints a success/fail result.
+This shell script verifies for the current repo and all included submodules that a readme file exists in the top dir of each repo. The script lists all submodules with missing readme files and prints a success/fail result.
 
 Example usage:
 `dpfeuffer@vm-suse:~/work/repos/13MD05-90> check_readme.sh`
@@ -107,5 +105,37 @@ Fictitious example output:
 13Y007-06 : ec3f6a2 (HEAD) : missing origin/master master tag
 LIBSRC/PLD/COM : 01256c8 (HEAD, origin/master, origin/HEAD, master) : missing tag
 Result: 70 submodules, 1 HEAD errors, 3 tag errors
+*** FAIL
+```
+
+### check_pkgdesc.sh
+
+This shell script verifies all package description .xml files in ./PACKAGE_DESC for:
+  - valid \<name\> tag (if the name is the .xml file name without prefix)
+  - valid \<docroot\> tag (if specified file exists)
+  - valid \<swmodule\>/\<makefilepath\> tag (if specified file exists)
+
+The script lists all errors and prints a success/fail result.
+
+Example usage:
+`dpfeuffer@vm-suse:/opt/menlinux> check_pkgdesc.sh`
+
+Shortened example output:
+```
+--- 13z00190.xml: Linux driver package for MEN 16Z001 SMB Controller ---
+*** <docroot>=DRIVERS/SMB_Z001/DOC/html/index.html not found
+--- 13z00506.xml: MDIS4 driver package for SJA1000 CAN chips ---
+*** <makefilepath>=DRIVERS/MDIS_LL/SJA1000/TEST/SJA1000_TEST/COM/program.mak not found
+    name: sja1000_test
+    desc: Automatic driver test for SJA1000 driver
+    type: Driver Specific Tool
+    attr: internal="true"
+--- 13z02590.xml: Linux serial driver package for MEN 16Z025 FPGA UART ---
+--- 13z04490.xml: Linux native framebuffer driver package for MEN 16Z044 IP core ---
+*** <name>:13z02590 != file-name:13z04490.xml
+--- 13z04706.xml: MDIS5 driver package for MEN 16Z047 Watchdog ---
+--- 13z13590.xml: Native serial driver for MEN 16Z135 FPGA highspeed UART ---
+--- 13z14006.xml: MDIS5 driver package for MEN 16Z140 Frequency Counter ---
+Result: 44 .xml files checked, 31 errors in 16 .xml files
 *** FAIL
 ```

@@ -120,7 +120,7 @@ parse_file () {
     while read_dom; do
         parse_dom
     done < $file_path
-    [[ $err > $tmp_err ]] && (( pkgerr++ ))
+    [[ $err -gt $tmp_err ]] && (( pkgerr++ ))
 }
 
 # parse all xml files

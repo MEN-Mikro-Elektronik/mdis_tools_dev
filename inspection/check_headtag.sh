@@ -20,7 +20,12 @@ function checktag {
 
     if [[ $tag == $name* ]]; then
         ver=$(echo $tag | sed -e "s/$name\_\(.*\).*/\1/")
-        [[ $ver == [0-9][0-9]_[0-9][0-9] ]] || illtag=1
+		# pciutils has special version, e.g. 3.5.5_04
+		if [[ $name == "pciutils" ]]; then
+			[[ $ver == *([0-9.])_[0-9][0-9] ]] || illtag=1
+		else
+			[[ $ver == [0-9][0-9]_[0-9][0-9] ]] || illtag=1
+		fi
     else
         illtag=1
     fi

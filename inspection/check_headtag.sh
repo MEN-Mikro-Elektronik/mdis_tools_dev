@@ -31,20 +31,16 @@ function checktag {
     fi
 }
 
-# check head, must be commit with master and tag
+# check head, must be at tagged commit
 function checkhead {
     line=$*
-    om=0; m=0; t=0
+    t=0
     ((sum++))
 
-    [[ $line = *" origin/master"* ]] && om=1
-    [[ $line = *" master"* ]] && m=1
     [[ $line = *" tag: "* ]] && t=1 
 
-    if [[ $((om+m+t)) < 3 ]]; then
+    if [[ $((om+m+t)) < 1 ]]; then
         echo -n "$line : missing "
-        [[ $om == 0 ]] && echo -n "origin/master " 
-        [[ $m == 0 ]] && echo -n "master " 
         [[ $t == 0 ]] && echo -n "tag" 
         echo
         ((errhead++))

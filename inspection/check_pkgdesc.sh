@@ -93,7 +93,7 @@ parse_dom () {
                 swm_basepath="."
                 ;;
             'Native Tool')
-                swm_basepath="TOOLS"
+                swm_basepath="."
                 ;;
             *)
                 echo "*** unknown type"

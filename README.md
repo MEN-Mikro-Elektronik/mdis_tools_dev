@@ -9,7 +9,7 @@ The install.sh script performs the default installation. It copies all tools int
 This subdirectory contains git extensions.
 Copy the git-\* files to a location that is specified in yout PATH variable (e.g. /usr/local/bin).
 
-### git-log-submodule
+### git-log-sub
 This git extension shows all commits with the names of the affected files of the current repo and
 all included submodules betwenn the current HEAD and the specified older commit hash or tag.
 
